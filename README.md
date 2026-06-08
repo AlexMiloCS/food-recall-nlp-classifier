@@ -1,4 +1,4 @@
-# Food Hazard Detection from Recall Texts 🍎🔍
+# Food Hazard Detection from Recall Texts 
 
 > **Course:** NLP 053 - Computer Science and Engineering, University of Ioannina (CSE UOI) - 2026
 > **Challenge:** SemEval-2025 Task 9, Subtask 1 (ST1) | [Kaggle Competition](https://www.kaggle.com/t/e6a57812ae554144a90823a7ddf48fd0)
