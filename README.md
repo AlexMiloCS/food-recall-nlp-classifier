@@ -45,6 +45,7 @@ To tackle this multi-class text categorization problem, we implemented a progres
    * Ablation studies, confusion matrix analysis, and class-wise performance discussion to understand failure modes on the long-tail classes.
 
 ## Repository Structure
+```text
 ├── data/                   # Raw and preprocessed dataset files (not tracked if large)
 ├── notebooks/              # Jupyter notebooks for EDA, baselines, and SOTA experiments
 ├── src/                    # Python scripts (preprocessing, modeling, evaluation)
@@ -52,7 +53,7 @@ To tackle this multi-class text categorization problem, we implemented a progres
 ├── reports/                # Final PDF report and presentation slides
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project documentation
-
+```
 ## Installation & Usage
 
 1. Clone the repository:
