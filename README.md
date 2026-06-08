@@ -48,7 +48,6 @@ To tackle this multi-class text categorization problem, we implemented a progres
 ```text
 ├── data/                   # Raw and preprocessed dataset files (not tracked if large)
 ├── notebooks/              # Jupyter notebooks for EDA, baselines, and SOTA experiments
-├── src/                    # Python scripts (preprocessing, modeling, evaluation)
 ├── models/                 # Saved model weights and tokenizers
 ├── reports/                # Final PDF report and presentation slides
 ├── requirements.txt        # Python dependencies
