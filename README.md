@@ -4,10 +4,10 @@
 > **Challenge:** SemEval-2025 Task 9, Subtask 1 (ST1) | [Kaggle Competition](https://www.kaggle.com/t/e6a57812ae554144a90823a7ddf48fd0)
 
 ## Overview
-This repository contains the code, data analysis, and final report for the **Food Hazard Prediction** task. The objective is to build explainable classification systems capable of predicting hazard and product categories from the titles and texts of food-incident recall reports collected from the web.
+This repository contains the code, data analysis, and final pipeline for the **Food Hazard Prediction** task. The objective is to build explainable classification systems capable of predicting hazard and product categories from the titles and texts of food-incident recall reports collected from the web.
 
-The model predicts two coarse-grained labels per text:
-* **Hazard Category:** 10 distinct classes.
+The system predicts two coarse-grained labels per text:
+* **Hazard Category:** 10 distinct classes (e.g., Allergens, Biological).
 * **Product Category:** 22 distinct classes.
 
 ## Dataset & Challenges
@@ -18,44 +18,43 @@ The dataset consists of English recall titles and full texts, heavily characteri
 * **Test:** 997 instances
 * **Total Challenge Data:** 6,644 English instances.
 
-*Note: The broader Food Recall Incidents dataset (Zenodo, CC BY-NC-SA 4.0) contains additional multilingual data.*
+*Note: The official data files are not tracked in this repository due to size and licensing constraints.*
 
 ## Evaluation Metric
 The official scoring metric is not a simple average. It strictly prioritizes the correct prediction of the hazard category to mitigate error propagation. The final score is computed as:
 
-$$ \text{Official Score} = \frac{\text{Macro-F1}_{hazard} + \text{Macro-F1}_{product | hazard\_correct}}{2} $$
+$$\text{Official Score} = \frac{\text{Macro-F1}_{hazard} + \text{Macro-F1}_{product | hazard\_correct}}{2}$$
 
 *If the hazard prediction is incorrect, the product prediction does not contribute to the score for that specific example.*
 
 ## Methodology
-To tackle this multi-class text categorization problem, we implemented a progressive experimental pipeline:
+To tackle this multi-class text categorization problem, we implemented a progressive, Object-Oriented experimental pipeline:
 
 1. **Exploratory Data Analysis (EDA) & Preprocessing:**
-   * Handled class imbalance using strategic sampling and class weights.
-   * Text cleaning, tokenization, and normalization using `spacy` and `nltk`.
+   * Text cleaning, tokenization, and normalization (Lemmatization, Stop-word removal).
+   * Dynamic calculation of class weights to handle the severe long-tail distribution.
 2. **Classical Baselines:**
-   * Feature extraction: TF-IDF, Word2Vec, GloVe, and FastText (`gensim`).
-   * Classifiers: Logistic Regression, Random Forest, SVM (`scikit-learn`).
-3. **Neural Baselines:**
-   * Feedforward Neural Networks and basic RNN/LSTM architectures to capture sequential context.
-4. **State-of-the-Art (SOTA) Approaches:**
-   * Fine-tuning Transformer-based embeddings (e.g., BERT, RoBERTa) tailored for heavily imbalanced text classification.
+   * Feature extraction: BoW, TF-IDF, and Word2Vec.
+   * Classifiers: LinearSVC (SVM), Logistic Regression, Naive Bayes.
+   * Extensive Hyperparameter tuning.
+3. **Deep Learning (Transformers):**
+   * Fine-tuning state-of-the-art contextual embeddings (`bert-base-uncased` and `roberta-base`).
+   * Custom Trainer implementation to integrate class weights directly into the CrossEntropyLoss.
+4. **Multimodal Ensemble (Final System):**
+   * A Weighted Soft-Voting Ensemble combining the probabilistic outputs of BERT (35%), RoBERTa (35%), and a Calibrated SVM (30% via Platt Scaling).
 5. **Evaluation & Error Analysis:**
-   * Thorough cross-validation setup.
-   * Ablation studies, confusion matrix analysis, and class-wise performance discussion to understand failure modes on the long-tail classes.
+   * Automated generation of Confusion Matrices and Ablation Studies to understand model behavior on minority classes.
 
 ## Repository Structure
 ```text
-├── data/                   # Raw and preprocessed dataset files (not tracked if large)
-├── notebooks/              # Jupyter notebooks for EDA, baselines, and SOTA experiments
-├── models/                 # Saved model weights and tokenizers
-├── reports/                # Final PDF report and presentation slides
+├── csv/                    # (Ignored) Place train.csv, valid.csv, and test.csv here
+├── data/                   # Dataset classes and PyTorch tensor processors
+├── preprocessing/          # Text cleaning and EDA statistical scripts
+├── features/               # BoW, TF-IDF, and Word2Vec extractors
+├── models/                 # Classical classifier wrappers and Custom Neural Trainers
+├── evaluation/             # ST1 metric scorers and automated Confusion Matrix generators
+├── images/                 # Output directory for generated plots and matrices
+├── multimodal_ensemble.ipynb # Final notebook for Ensemble evaluation and submission
+├── train_classical.ipynb   # Baseline training and exploration notebook
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project documentation
-```
-## Installation & Usage
-
-1. Clone the repository:
-```bash
-   git clone [https://github.com/yourusername/food-hazard-detection.git](https://github.com/yourusername/food-hazard-detection.git)
-   cd food-hazard-detection
