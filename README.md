@@ -42,3 +42,29 @@ We implemented a progressive, modular Object-Oriented pipeline:
 ├── multimodal_ensemble.ipynb # Deep Learning fine-tuning and final Ensemble creation
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project documentation
+```
+
+## Installation & Usage
+
+1. **Clone the repository and navigate into it:**
+```bash
+git clone https://github.com/yourusername/food-hazard-detection.git
+cd food-hazard-detection
+```
+*(Note: Remember to replace `yourusername` in the URL above with your actual GitHub username).*
+
+2. **Install the required dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+3. **Environment Setup:** Create a `.env` file in the root directory and add your Hugging Face Token (required for downloading Transformer models):
+```text
+HF_TOKEN=your_huggingface_token_here
+```
+
+4. **Data Setup:** Download the official dataset from Kaggle and place the CSV files (`train.csv`, `valid.csv`, `test.csv`) inside the `csv/` directory.
+
+5. **Run the Code:** 
+   * Run `train_classical.ipynb` locally (or in your preferred environment) to establish baselines and generate EDA plots.
+   * Run `multimodal_ensemble.ipynb` to execute the deep learning models and final ensemble evaluation. **Important Note:** This specific notebook is configured to run in **Google Colab** utilizing **Google Drive** mounting (`drive.mount('/content/drive')`). This is necessary to access sufficient GPU resources for training BERT and RoBERTa. To run it, upload the repository folder to your Google Drive and adjust the `PROJECT_PATH` variable in the notebook accordingly.
