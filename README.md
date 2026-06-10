@@ -1,4 +1,9 @@
 # Food Hazard Detection from Recall Texts 
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/-HuggingFace-FDEE21?style=for-the-badge&logo=HuggingFace&logoColor=black)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
 
 > **Course:** NLP 053 - Computer Science and Engineering, University of Ioannina (CSE UOI) - 2026  
 > **Challenge:** SemEval-2025 Task 9, Subtask 1 (ST1) | [Kaggle Competition](https://www.kaggle.com/t/e6a57812ae554144a90823a7ddf48fd0)
@@ -65,6 +70,17 @@ HF_TOKEN=your_huggingface_token_here
 
 4. **Data Setup:** Download the official dataset from Kaggle and place the CSV files (`train.csv`, `valid.csv`, `test.csv`) inside the `csv/` directory.
 
-5. **Run the Code:** 
-   * Run `train_classical.ipynb` locally (or in your preferred environment) to establish baselines and generate EDA plots.
-   * Run `multimodal_ensemble.ipynb` to execute the deep learning models and final ensemble evaluation. **Important Note:** This specific notebook is configured to run in **Google Colab** utilizing **Google Drive** mounting (`drive.mount('/content/drive')`). This is necessary to access sufficient GPU resources for training BERT and RoBERTa. To run it, upload the repository folder to your Google Drive and adjust the `PROJECT_PATH` variable in the notebook accordingly.
+### 5. Run the Code
+Execute the provided Jupyter notebooks in the following order to reproduce the project's results:
+
+* **`00_train_classical.ipynb`**: Run this locally (or in your preferred environment) to perform Exploratory Data Analysis (EDA), establish statistical baselines (Logistic Regression, Naive Bayes, SVM), and generate confusion matrices.
+* **`01_train_bert.ipynb`**: Executes the fine-tuning of the `bert-base-uncased` model and saves its probability predictions.
+* **`02_train_roberta.ipynb`**: Executes the fine-tuning of the `roberta-base` model and saves its probability predictions.
+* **`03_multimodal_ensemble.ipynb`**: The final stage of the pipeline. It trains the calibrated SVM (on-the-fly), loads the Transformer probabilities from the disk, and evaluates the final **Weighted Soft-Voting Ensemble**, exporting the final `submission.csv` and the Ablation Study plot.
+
+> **Important Note for Deep Learning Notebooks (`01`, `02`, and `03`):** > These specific notebooks are configured to run in **Google Colab** utilizing **Google Drive** mounting (`drive.mount('/content/drive')`). This is absolutely necessary to access sufficient GPU resources (e.g., NVIDIA T4) for training BERT and RoBERTa in a reasonable amount of time. 
+> 
+> **To run them:**
+> 1. Upload the entire project folder to your Google Drive.
+> 2. Open the notebooks via Google Colab.
+> 3. Adjust the `PROJECT_PATH` variable in the first cell to match the exact path of the repository within your Drive.
