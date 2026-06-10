@@ -8,6 +8,12 @@
 > **Course:** NLP 053 - Computer Science and Engineering, University of Ioannina (CSE UOI) - 2026  
 > **Challenge:** SemEval-2025 Task 9, Subtask 1 (ST1) | [Kaggle Competition](https://www.kaggle.com/t/e6a57812ae554144a90823a7ddf48fd0)
 
+This repository contains the source code and experimental pipeline for our submission to **SemEval-2025 Task 9 (Subtask 1): Food Hazard Detection**. 
+
+The goal of this project is the simultaneous classification of short food recall texts into specific Hazard and Product categories. To address the inherent challenges of the dataset—namely, severe long-tail data imbalance and strict error propagation in the official evaluation metric—we developed a **Weighted Soft-Voting Ensemble** architecture. 
+
+Our final multimodal system dynamically combines the contextual understanding of fine-tuned Transformers (**BERT** and **RoBERTa**) with the statistical robustness of a calibrated classical classifier (**LinearSVC with TF-IDF**). The implementation utilizes custom dynamic class weighting integrated directly into the Cross-Entropy loss function to mitigate class imbalance.
+
 ## Overview
 This repository contains the source code, Object-Oriented framework, and final pipeline for the **Food Hazard Prediction** task. The objective is to build explainable classification systems capable of predicting hazard and product categories from the titles and texts of food-incident recall reports.
 
