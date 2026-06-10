@@ -40,19 +40,21 @@ We implemented a progressive, modular Object-Oriented pipeline:
 
 ## Directory Structure
 ```text
-├── csv/                    # (Ignored) Place train.csv, valid.csv, and test.csv here
-├── data/                   # DataProcessor and PyTorch FoodDataset classes
-├── evaluation/             # ST1 Kaggle Scorer, Confusion Matrix Creator, and Exporter
-├── features/               # BoW, TF-IDF, and Word2Vec feature extraction wrappers
-├── images/                 # Output directory for generated EDA plots and matrices
-├── models/                 # Classifier wrappers (SVM, Logistic, NB) and Custom HF Trainer
-├── preprocessing/          # NLTK Text Cleaner and EDA Data Analyzer
-├── trainer_utils/          # Automated pipeline runners (ModelTrainer, ClassicalTrainer)
-├── utils/                  # Environment setup scripts (.env loaders)
-├── train_classical.ipynb   # Baseline training, EDA, and exploration notebook
-├── multimodal_ensemble.ipynb # Deep Learning fine-tuning and final Ensemble creation
-├── requirements.txt        # Python dependencies
-└── README.md               # Project documentation
+├── csv/                     # Place train.csv, valid.csv, test.csv here (Also stores output submissions)
+├── data/                    # DataProcessor and PyTorch FoodDataset classes
+├── evaluation/              # Kaggle Scorer, Confusion Matrix Creator, Exporter, and PostProcessor
+├── features/                # BoW, TF-IDF, and Word2Vec feature extraction wrappers
+├── images/                  # Output directory for EDA plots, confusion matrices, and ablation studies
+├── models/                  # Classifier wrappers, HF DualTrainer, saved model weights, and `.npy` probabilities
+├── preprocessing/           # NLTK Text Cleaner and EDA Data Analyzer
+├── trainer_utils/           # Automated pipeline runners for classical machine learning
+├── utils/                   # Environment setup scripts (e.g., .env loaders for Hugging Face tokens)
+├── 00_train_classical.ipynb # Baseline training, EDA, and exploration notebook
+├── 01_train_bert.ipynb      # BERT fine-tuning, evaluation, and probability extraction
+├── 02_train_roberta.ipynb   # RoBERTa fine-tuning, evaluation, and probability extraction
+├── 03_multimodal_ensemble.ipynb # Fast SVM training and Weighted Soft-Voting Ensemble execution
+├── requirements.txt         # Python dependencies
+└── README.md                # Project documentation
 ```
 
 ## Installation & Usage
